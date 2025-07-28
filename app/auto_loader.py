@@ -7,12 +7,12 @@ import hashlib
 import glob
 
 USER_ID = "5275748984"
-STATE_DIR = "/config/state"
+STATE_DIR = "/app/config/state"
 ARTIST_STATE_DIR = f"{STATE_DIR}/artists"
 FOLLOWED_ARTISTS_FILE = f"{STATE_DIR}/followed_artists.json"
-DEEMIX_LOG_FILE = "/config/logs/deemix_log.txt"
-RIP_LOG_FILE = "/config/streamrip/rip_log.txt"
-RIP_CONFIG_FILE = "/config/streamrip/config.toml "
+DEEMIX_LOG_FILE = "/app/config/logs/deemix_log.txt"
+RIP_LOG_FILE = "/app/config/streamrip/rip_log.txt"
+RIP_CONFIG_FILE = "/app/config/streamrip/config.toml "
 MUSIC_PATH = "/music"
 PLAYLISTS_PATH = f"{MUSIC_PATH}/playlists"
 DOWNLOAD_ALBUMS_INSTEAD_OF_TRACKS = True

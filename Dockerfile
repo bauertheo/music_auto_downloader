@@ -12,7 +12,6 @@ WORKDIR /app
 COPY app/ /app/
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
-COPY config/streamrip/config.toml /config/streamrip/config.toml
 
 # Startskript
 COPY run.sh /run.sh
