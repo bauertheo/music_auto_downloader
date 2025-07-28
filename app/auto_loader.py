@@ -7,15 +7,21 @@ import hashlib
 import glob
 
 USER_ID = "5275748984"
-ARTIST_ID = "151229192"  # Ersetze mit echter ID
-ARTIST_STATE_DIR = "./state/artists"
-STATE_DIR = "./state"
+STATE_DIR = "/config/state"
+ARTIST_STATE_DIR = f"{STATE_DIR}/artists"
 FOLLOWED_ARTISTS_FILE = f"{STATE_DIR}/followed_artists.json"
-DEEMIX_LOG_FILE = "./config/logs/deemix_log.txt"
-RIP_LOG_FILE = "./config/streamrip/rip_log.txt"
-MUSIC_PATH = "./music"
+DEEMIX_LOG_FILE = "/config/logs/deemix_log.txt"
+RIP_LOG_FILE = "/config/streamrip/rip_log.txt"
+RIP_CONFIG_FILE = "/config/streamrip/config.toml "
+MUSIC_PATH = "/music"
 PLAYLISTS_PATH = f"{MUSIC_PATH}/playlists"
 DOWNLOAD_ALBUMS_INSTEAD_OF_TRACKS = True
+
+def ensure_directories():
+    os.makedirs(STATE_DIR, exist_ok=True)
+    os.makedirs(ARTIST_STATE_DIR, exist_ok=True)
+    os.makedirs(MUSIC_PATH, exist_ok=True)
+    os.makedirs(PLAYLISTS_PATH, exist_ok=True)
 
 def fetch_all_followed_artists():
     url = f"https://api.deezer.com/user/{USER_ID}/artists"
@@ -67,7 +73,7 @@ def find_new_releases(artist_id, artist_name):
     if new_releases:
         notify_new_releases(new_releases)
         for r in new_releases:
-            rip_download_album(artist_name, r["id"])
+            rip_download_album(r["id"])
         save_known_releases(artist_id, all_releases)
 
 
@@ -117,17 +123,17 @@ def deemix_download_tracks(tracks):
 
 def rip_download_album(album_id):
 
-    command =  f"rip --config-path ./config/streamrip/config.toml url https://www.deezer.com/album/{album_id}"
+    command =  f"rip --config-path {RIP_CONFIG_FILE} url https://www.deezer.com/album/{album_id}"
     rip_download(command)
 
 def rip_download_playlist(playlist_id):
 
-    command =  f"rip --config-path ./config/streamrip/config.toml url {MUSIC_PATH}/ https://www.deezer.com/playlist/{playlist_id}"
+    command =  f"rip --config-path {RIP_CONFIG_FILE} url https://www.deezer.com/playlist/{playlist_id}"
     rip_download(command)
 
 def rip_download_track(track_id):
 
-    command =  f"rip --config-path ./config/streamrip/config.toml url {MUSIC_PATH}/ https://www.deezer.com/track/{track_id}"
+    command =  f"rip --config-path {RIP_CONFIG_FILE} url https://www.deezer.com/track/{track_id}"
     rip_download(command)
 
 def rip_download(command):
@@ -254,9 +260,8 @@ def extract_all_followed_playlists():
         extract_playlist(r["id"])
 
 def main():
-    #find_all_new_releases()
-    #deemix_download_album("Ikkimel", 707694221)
-    #extract_playlist(1275756721)
+    ensure_directories()
+    find_all_new_releases()
     extract_all_followed_playlists()
 
 if __name__ == "__main__":
