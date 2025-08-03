@@ -10,9 +10,10 @@ USER_ID = "5275748984"
 STATE_DIR = "/app/config/state"
 ARTIST_STATE_DIR = f"{STATE_DIR}/artists"
 FOLLOWED_ARTISTS_FILE = f"{STATE_DIR}/followed_artists.json"
+RIP_CONFIG_DIR = "/app/config/streamrip"
 DEEMIX_LOG_FILE = "/app/config/logs/deemix_log.txt"
-RIP_LOG_FILE = "/app/config/streamrip/rip_log.txt"
-RIP_CONFIG_FILE = "/app/config/streamrip/config.toml "
+RIP_LOG_FILE = f"{RIP_CONFIG_DIR}rip_log.txt"
+RIP_CONFIG_FILE = "{RIP_CONFIG_DIR}/config.toml "
 MUSIC_PATH = "/music"
 PLAYLISTS_PATH = f"{MUSIC_PATH}/playlists"
 DOWNLOAD_ALBUMS_INSTEAD_OF_TRACKS = True
@@ -22,6 +23,7 @@ def ensure_directories():
     os.makedirs(ARTIST_STATE_DIR, exist_ok=True)
     os.makedirs(MUSIC_PATH, exist_ok=True)
     os.makedirs(PLAYLISTS_PATH, exist_ok=True)
+    os.makedirs(RIP_CONFIG_DIR, exist_ok=True)
 
 def fetch_all_followed_artists():
     url = f"https://api.deezer.com/user/{USER_ID}/artists"
