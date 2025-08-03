@@ -5,6 +5,7 @@ import subprocess
 from datetime import datetime
 import hashlib
 import glob
+import shutil
 
 USER_ID = "5275748984"
 STATE_DIR = "/app/config/state"
@@ -14,6 +15,7 @@ RIP_CONFIG_DIR = "/app/config/streamrip"
 DEEMIX_LOG_FILE = "/app/config/logs/deemix_log.txt"
 RIP_LOG_FILE = f"{RIP_CONFIG_DIR}rip_log.txt"
 RIP_CONFIG_FILE = "{RIP_CONFIG_DIR}/config.toml "
+OIGIN_RIP_CONFIG_FILE = "/app/streamrip_config.toml "
 MUSIC_PATH = "/music"
 PLAYLISTS_PATH = f"{MUSIC_PATH}/playlists"
 DOWNLOAD_ALBUMS_INSTEAD_OF_TRACKS = True
@@ -24,6 +26,9 @@ def ensure_directories():
     os.makedirs(MUSIC_PATH, exist_ok=True)
     os.makedirs(PLAYLISTS_PATH, exist_ok=True)
     os.makedirs(RIP_CONFIG_DIR, exist_ok=True)
+
+    if not os.Path.exists(RIP_CONFIG_FILE):
+        shutil.copy(OIGIN_RIP_CONFIG_FILE, RIP_CONFIG_FILE)
 
 def fetch_all_followed_artists():
     url = f"https://api.deezer.com/user/{USER_ID}/artists"
