@@ -7,7 +7,7 @@ import hashlib
 import glob
 import shutil
 
-USER_ID = "5275748984"
+USER_ID = "6605956461"
 STATE_DIR = "/app/config/state"
 ARTIST_STATE_DIR = f"{STATE_DIR}/artists"
 FOLLOWED_ARTISTS_FILE = f"{STATE_DIR}/followed_artists.json"
