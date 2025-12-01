@@ -8,13 +8,22 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-# Abhängigkeiten
+# Install streamrip globally (outside venv)
+RUN pip install --no-cache-dir streamrip
+
+# Copy app files
 COPY app/ /app/
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
 
-# Startskript
+# Create virtual environment for the Python script
+RUN python3 -m venv /app/venv
+
+# Install script dependencies in venv
+RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
+
+# Copy start script
 COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
 CMD ["/run.sh"]
 

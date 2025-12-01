@@ -36,8 +36,8 @@ pytest-mock==3.14.1
 requests==2.32.4
 rich==13.9.4
 simple-term-menu==1.6.6
-streamrip @ git+https://github.com/nathom/streamrip.git@5bcadd3c6a375ef432a78e371800b97f18f6daa3
 tomlkit==0.7.2
 typing_extensions==4.14.1
 urllib3==2.5.0
 yarl==1.20.1
+deezer-python==7.2.0
